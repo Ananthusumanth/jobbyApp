@@ -1,0 +1,147 @@
+.visit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.visited {
+  color: lightblue;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.ul-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.jobItem-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  min-height: 90vh;
+  color: #ffffff;
+  padding: 40px;
+}
+.headtextImage {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.headrating {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.headlocationDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.jobItemCard {
+  background-color: #2c364c;
+  padding: 20px;
+  border-radius: 10px;
+}
+.similarlogo {
+  width: 120px;
+}
+.headtext {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid gray;
+}
+.headtextrightDiv {
+  margin-left: 20px;
+}
+.locationimgDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.locationimgDivbag {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 30px;
+}
+.lifeOfCompanyDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.ul-similar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.li-similar-container {
+  background-color: #2c364c;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-shrink: 1;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 10px;
+}
+.similatHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.titleDiv {
+  margin-left: 10px;
+}
+.ratingDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.locatioAndemploy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+/* .backgroundDiv {
+  background-color: #000000;
+  min-height: 100vh;
+  color: #ffffff;
+} */
+
+/*********************************************************************************************** */
+
+@media (max-width: 768px) {
+  .lifeOfCompanyDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .p {
+    order: 1;
+  }
+  .ul-similar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,43 @@
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #202020;
+}
+.logo {
+  width: 100px;
+}
+* {
+  list-style: none;
+  text-decoration: none;
+}
+.ul-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Roboto;
+}
+.homelink {
+  margin-right: 15px;
+  color: #ffffff;
+}
+.headerLogoutButton {
+  border: none;
+  background-color: #6366f1;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Roboto;
+}

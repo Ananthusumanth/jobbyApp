@@ -1,0 +1,35 @@
+.Profile-Container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  background-size: cover;
+  border-radius: 5px;
+  padding: 10px;
+  height: 30vh;
+  margin-bottom: 10px;
+}
+.main-headingProfile {
+  color: #4f46e5;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Georgia;
+}
+.profile-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+.description {
+  color: green;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: Roboto;
+}
+.profile {
+  width: 25%;
+}
+@media (max-width: 768px) {
+  .profile {
+    width: 50%;
+  }
+}
