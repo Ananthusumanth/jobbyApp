@@ -84,7 +84,7 @@ class JobsRoute extends Component {
     salaryRanges: '1000000',
     searchValue: '',
     status: apiContentResponse.initially,
-    employmentType: ['FULLTIME', 'PARTTIME'],
+    employmentType: [],
     activeLocations: [],
   }
 
@@ -125,7 +125,6 @@ class JobsRoute extends Component {
         filteredDataList = updatesJobDetails.filter(job => {
           let isLocationIncluded = false
           activeLocations.forEach(location => {
-            // console.log(job.location === location)
             if (job.location === location) {
               isLocationIncluded = true
             }
@@ -133,7 +132,6 @@ class JobsRoute extends Component {
           })
           return isLocationIncluded
         })
-        // console.log(filteredDataList)
       }
       this.setState({
         filterDate: filteredDataList,
@@ -160,11 +158,10 @@ class JobsRoute extends Component {
   onClickCheckBoxEmployment = id => {
     const {employmentType} = this.state
     const listOfBox = employmentType.includes(id)
-    // console.log(listOfBox)
     if (listOfBox) {
-      const updatedlist = employmentType.filter(each => each !== id)
-      // console.log(updatedlist)
-      this.setState(({employmentType: updatedlist}, this.getjobsData))
+      const index = employmentType.indexOf(id)
+      employmentType.splice(index, 1)
+      this.setState(({employmentType}, this.getjobsData))
     } else {
       employmentType.push(id)
       this.setState(({employmentType}, this.getjobsData))
@@ -174,11 +171,11 @@ class JobsRoute extends Component {
   onClickCheckBoxlocation = id => {
     const {activeLocations} = this.state
     const listOfBox = activeLocations.includes(id)
-    console.log(listOfBox)
     if (listOfBox) {
-      const updated = activeLocations.filter(each => each !== id)
-      console.log(updated)
-      this.setState(({activeLocations: updated}, this.getjobsData))
+      const index = activeLocations.indexOf(id)
+      console.log(index)
+      activeLocations.splice(index, 1)
+      this.setState(({activeLocations}, this.getjobsData))
     } else {
       activeLocations.push(id)
       this.setState(({activeLocations}, this.getjobsData))
@@ -269,9 +266,7 @@ class JobsRoute extends Component {
                   key="label"
                   value={eachItem.label}
                   className="input"
-                  onClick={() =>
-                    this.onClickCheckBoxlocation(eachItem.locationRangeId)
-                  }
+                  onClick={() => this.onClickCheckBoxlocation(eachItem.label)}
                 />
                 <label htmlFor="label">{eachItem.label}</label>
               </li>
