@@ -54,6 +54,29 @@ const salaryRangesList = [
   },
 ]
 
+const locationRangeList = [
+  {
+    locationRangeId: 'HYDERABAD',
+    label: 'Hyderabad',
+  },
+  {
+    locationRangeId: 'CHENNAI',
+    label: 'Chennai',
+  },
+  {
+    locationRangeId: 'BANGALORE',
+    label: 'Bangalore',
+  },
+  {
+    locationRangeId: 'DELHI',
+    label: 'Delhi',
+  },
+  {
+    locationRangeId: 'MUMBAI',
+    label: 'Mumbai',
+  },
+]
+
 class JobsRoute extends Component {
   state = {
     search: '',
@@ -61,16 +84,8 @@ class JobsRoute extends Component {
     salaryRanges: '1000000',
     searchValue: '',
     status: apiContentResponse.initially,
-    checkBox: ['FULLTIME', 'PARTTIME'],
-  }
-
-  onChangeSearch = event => {
-    this.setState({searchValue: event.target.value})
-  }
-
-  onClickedSearchIcon = () => {
-    const {searchValue} = this.state
-    this.setState({search: searchValue}, this.getjobsData)
+    employmentType: ['FULLTIME', 'PARTTIME'],
+    locationArea: [],
   }
 
   componentDidMount() {
@@ -79,8 +94,9 @@ class JobsRoute extends Component {
   }
 
   getjobsData = async () => {
-    const {checkBox, salaryRanges, search} = this.state
-    // console.log(checkBox)
+    const {employmentType, locationArea, salaryRanges, search} = this.state
+    // console.log(location)
+    // console.log(employmentType)
     const url = 'https://apis.ccbp.in/jobs'
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -90,11 +106,12 @@ class JobsRoute extends Component {
       method: 'GET',
     }
     const response = await fetch(
-      `${url}?employment_type=${checkBox}&minimum_package=${salaryRanges}&search=${search}`,
+      `${url}?employment_type=${employmentType}&minimum_package=${salaryRanges}&location=${locationArea}&search=${search}`,
       options,
     )
     if (response.ok) {
       const data = await response.json()
+      // console.log(data)
       const updatesJobDetails = data.jobs.map(each => ({
         companyLogoUrl: each.company_logo_url,
         employmentType: each.employment_type,
@@ -114,21 +131,44 @@ class JobsRoute extends Component {
     }
   }
 
+  onChangeSearch = event => {
+    this.setState({searchValue: event.target.value})
+  }
+
+  onClickedSearchIcon = () => {
+    const {searchValue} = this.state
+    this.setState({search: searchValue}, this.getjobsData)
+  }
+
   onClickCheckBoxSalary = event => {
     this.setState({salaryRanges: event.target.value}, this.getjobsData)
   }
 
   onClickCheckBoxEmployment = id => {
-    const {checkBox} = this.state
-    const listOfBox = checkBox.includes(id)
-    console.log(listOfBox)
+    const {employmentType} = this.state
+    const listOfBox = employmentType.includes(id)
+    // console.log(listOfBox)
     if (listOfBox) {
-      const updatedlist = checkBox.filter(each => each !== id)
-      console.log(updatedlist)
-      this.setState(({checkBox: updatedlist}, this.getjobsData))
+      const updatedlist = employmentType.filter(each => each !== id)
+      // console.log(updatedlist)
+      this.setState(({employmentType: updatedlist}, this.getjobsData))
     } else {
-      checkBox.push(id)
-      this.setState(({checkBox}, this.getjobsData))
+      employmentType.push(id)
+      this.setState(({employmentType}, this.getjobsData))
+    }
+  }
+
+  onClickCheckBoxlocation = id => {
+    const {locationArea} = this.state
+    const listOfBox = locationArea.includes(id)
+    // console.log(listOfBox)
+    if (listOfBox) {
+      const updatedlist = locationArea.filter(each => each !== id)
+      // console.log(updatedlist)
+      this.setState(({locationArea: updatedlist}, this.getjobsData))
+    } else {
+      locationArea.push(id)
+      this.setState(({locationArea}, this.getjobsData))
     }
   }
 
@@ -202,6 +242,25 @@ class JobsRoute extends Component {
                   onClick={this.onClickCheckBoxSalary}
                 />
                 <label htmlFor="label">{each.label}</label>
+              </li>
+            ))}
+          </div>
+          <hr className="hr" />
+          <div className="locationList-row">
+            <h1 className="main-headingEmployees">Location</h1>
+            {locationRangeList.map(eachItem => (
+              <li className="checkBoxDiv" key={eachItem.locationRangeId}>
+                <input
+                  type="checkbox"
+                  id="label"
+                  key="label"
+                  value={eachItem.label}
+                  className="input"
+                  onClick={() =>
+                    this.onClickCheckBoxlocation(eachItem.locationRangeId)
+                  }
+                />
+                <label htmlFor="label">{eachItem.label}</label>
               </li>
             ))}
           </div>
