@@ -85,7 +85,7 @@ class JobsRoute extends Component {
     searchValue: '',
     status: apiContentResponse.initially,
     employmentType: ['FULLTIME', 'PARTTIME'],
-    locationArea: [],
+    activeLocations: [],
   }
 
   componentDidMount() {
@@ -94,9 +94,8 @@ class JobsRoute extends Component {
   }
 
   getjobsData = async () => {
-    const {employmentType, locationArea, salaryRanges, search} = this.state
-    // console.log(location)
-    // console.log(employmentType)
+    const {employmentType, activeLocations, salaryRanges, search} = this.state
+    console.log(activeLocations)
     const url = 'https://apis.ccbp.in/jobs'
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -106,12 +105,11 @@ class JobsRoute extends Component {
       method: 'GET',
     }
     const response = await fetch(
-      `${url}?employment_type=${employmentType}&minimum_package=${salaryRanges}&location=${locationArea}&search=${search}`,
+      `${url}?employment_type=${employmentType}&minimum_package=${salaryRanges}&search=${search}`,
       options,
     )
     if (response.ok) {
       const data = await response.json()
-      // console.log(data)
       const updatesJobDetails = data.jobs.map(each => ({
         companyLogoUrl: each.company_logo_url,
         employmentType: each.employment_type,
@@ -122,8 +120,23 @@ class JobsRoute extends Component {
         rating: each.rating,
         title: each.title,
       }))
+      let filteredDataList = updatesJobDetails
+      if (activeLocations.length !== 0) {
+        filteredDataList = updatesJobDetails.filter(job => {
+          let isLocationIncluded = false
+          activeLocations.forEach(location => {
+            // console.log(job.location === location)
+            if (job.location === location) {
+              isLocationIncluded = true
+            }
+            return isLocationIncluded
+          })
+          return isLocationIncluded
+        })
+        // console.log(filteredDataList)
+      }
       this.setState({
-        filterDate: updatesJobDetails,
+        filterDate: filteredDataList,
         status: apiContentResponse.success,
       })
     } else {
@@ -159,16 +172,16 @@ class JobsRoute extends Component {
   }
 
   onClickCheckBoxlocation = id => {
-    const {locationArea} = this.state
-    const listOfBox = locationArea.includes(id)
-    // console.log(listOfBox)
+    const {activeLocations} = this.state
+    const listOfBox = activeLocations.includes(id)
+    console.log(listOfBox)
     if (listOfBox) {
-      const updatedlist = locationArea.filter(each => each !== id)
-      // console.log(updatedlist)
-      this.setState(({locationArea: updatedlist}, this.getjobsData))
+      const updated = activeLocations.filter(each => each !== id)
+      console.log(updated)
+      this.setState(({activeLocations: updated}, this.getjobsData))
     } else {
-      locationArea.push(id)
-      this.setState(({locationArea}, this.getjobsData))
+      activeLocations.push(id)
+      this.setState(({activeLocations}, this.getjobsData))
     }
   }
 
