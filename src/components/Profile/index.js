@@ -27,7 +27,7 @@ class Profile extends Component {
       method: 'GET',
     }
     const response = await fetch('https://apis.ccbp.in/profile', options)
-    if (response.ok === true) {
+    if (response.ok) {
       const data = await response.json()
       const updateDetails = {
         name: data.profile_details.name,
@@ -43,10 +43,6 @@ class Profile extends Component {
     }
   }
 
-  onClickedRetry = () => {
-    this.getProfileDetails()
-  }
-
   loadingView = () => (
     <div className="profile-main-container">
       <div className="loader-container" data-testid="loader">
@@ -60,7 +56,7 @@ class Profile extends Component {
       <button
         type="button"
         className="home-button"
-        onClick={this.onClickedRetry}
+        onClick={this.getProfileDetails}
       >
         Retry
       </button>

@@ -40,9 +40,8 @@ class JobItemDetailsRoute extends Component {
     const upi = 'https://apis.ccbp.in/jobs'
     const response = await fetch(`${upi}/${id}`, options)
     // console.log(response)
-    if (response.ok === true) {
+    if (response.ok) {
       const data = await response.json()
-      console.log(data)
       const gotDataFromApi = {
         companyLogoUrl: data.job_details.company_logo_url,
         companyWebsiteUrl: data.job_details.company_website_url,
@@ -70,10 +69,6 @@ class JobItemDetailsRoute extends Component {
     }
   }
 
-  onClickedRetry = () => {
-    this.getJobIdDetails()
-  }
-
   loadingView = () => (
     <div className="loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
@@ -92,7 +87,7 @@ class JobItemDetailsRoute extends Component {
       <button
         type="button"
         className="home-button"
-        onClick={this.onClickedRetry}
+        onClick={this.getJobIdDetails}
       >
         Retry
       </button>

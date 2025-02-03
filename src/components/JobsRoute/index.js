@@ -95,7 +95,6 @@ class JobsRoute extends Component {
 
   getjobsData = async () => {
     const {employmentType, activeLocations, salaryRanges, search} = this.state
-    console.log(activeLocations)
     const url = 'https://apis.ccbp.in/jobs'
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -182,10 +181,6 @@ class JobsRoute extends Component {
     }
   }
 
-  onClickedRetry = () => {
-    this.getjobsData()
-  }
-
   loadingView = () => (
     <div className="loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
@@ -201,11 +196,7 @@ class JobsRoute extends Component {
       />
       <h1>Oops! Something Went Wrong</h1>
       <p>We cannot seem to find the page you are looking for</p>
-      <button
-        type="button"
-        className="home-button"
-        onClick={this.onClickedRetry}
-      >
+      <button type="button" className="home-button" onClick={this.getjobsData}>
         Retry
       </button>
     </div>
@@ -219,59 +210,56 @@ class JobsRoute extends Component {
         <div className="sidebar-container">
           <Profile />
           <hr className="hr" />
-          <div className="employmentTypesList-row">
+          <ul className="employmentTypesList-row">
             <h1 className="main-headingEmployees">Type of Employment</h1>
             {employmentTypesList.map(eachItem => (
               <li className="checkBoxDiv" key={eachItem.employmentTypeId}>
                 <input
                   type="checkbox"
-                  id="label"
-                  key="label"
+                  id={eachItem.label}
                   value={eachItem.label}
                   className="input"
                   onClick={() =>
                     this.onClickCheckBoxEmployment(eachItem.employmentTypeId)
                   }
                 />
-                <label htmlFor="label">{eachItem.label}</label>
+                <label htmlFor={eachItem.label}>{eachItem.label}</label>
               </li>
             ))}
-          </div>
+          </ul>
           <hr className="hr" />
-          <div className="salaryRangesList-row">
+          <ul className="salaryRangesList-row">
             <h1 className="main-headingEmployees">Salary Range</h1>
             {salaryRangesList.map(each => (
               <li className="checkBoxDiv" key={each.salaryRangeId}>
                 <input
                   type="radio"
-                  id="label"
-                  key="label"
+                  id={each.label}
                   name="money"
                   className="input"
                   value={each.salaryRangeId}
                   onClick={this.onClickCheckBoxSalary}
                 />
-                <label htmlFor="label">{each.label}</label>
+                <label htmlFor={each.label}>{each.label}</label>
               </li>
             ))}
-          </div>
+          </ul>
           <hr className="hr" />
-          <div className="locationList-row">
+          <ul className="locationList-row">
             <h1 className="main-headingEmployees">Location</h1>
             {locationRangeList.map(eachItem => (
               <li className="checkBoxDiv" key={eachItem.locationRangeId}>
                 <input
                   type="checkbox"
-                  id="label"
-                  key="label"
+                  id={eachItem.label}
                   value={eachItem.label}
                   className="input"
                   onClick={() => this.onClickCheckBoxlocation(eachItem.label)}
                 />
-                <label htmlFor="label">{eachItem.label}</label>
+                <label htmlFor={eachItem.label}>{eachItem.label}</label>
               </li>
             ))}
-          </div>
+          </ul>
           <hr className="hr" />
         </div>
         <div className="jobsSearch-container">
