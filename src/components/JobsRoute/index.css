@@ -8,14 +8,6 @@
   align-items: flex-start;
   color: #ffffff;
 }
-.loader-Job-container {
-  background-color: green;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 .sidebar-container {
   display: flex;
   flex-direction: column;
@@ -54,8 +46,8 @@
   margin-left: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 .main-headingEmployees {
@@ -78,12 +70,12 @@
   border: 1px inset gray;
   display: flex;
   flex-direction: row;
-  width: 40%;
+  width: 90%;
   border-radius: 5px;
 }
 .Searchinput {
   padding: 5px;
-  width: 95%;
+  width: 100%;
   color: #ffffff;
   background-color: transparent;
 }
@@ -170,7 +162,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+}
+.responseOutput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 768px) {

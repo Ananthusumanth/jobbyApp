@@ -17,10 +17,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: green;
   height: 30vh;
 }
 .description {
-  color: green;
   font-size: 13px;
   font-weight: bold;
   font-family: Roboto;

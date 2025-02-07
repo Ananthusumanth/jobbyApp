@@ -203,136 +203,60 @@ class JobsRoute extends Component {
   )
 
   successView = () => {
-    const {searchValue, filterDate} = this.state
+    const {filterDate} = this.state
 
     return (
-      <div className="Jobs-container">
-        <div className="sidebar-container">
-          <Profile />
-          <hr className="hr" />
-          <ul className="employmentTypesList-row">
-            <h1 className="main-headingEmployees">Type of Employment</h1>
-            {employmentTypesList.map(eachItem => (
-              <li className="checkBoxDiv" key={eachItem.employmentTypeId}>
-                <input
-                  type="checkbox"
-                  id={eachItem.label}
-                  value={eachItem.label}
-                  className="input"
-                  onClick={() =>
-                    this.onClickCheckBoxEmployment(eachItem.employmentTypeId)
-                  }
-                />
-                <label htmlFor={eachItem.label}>{eachItem.label}</label>
-              </li>
-            ))}
-          </ul>
-          <hr className="hr" />
-          <ul className="salaryRangesList-row">
-            <h1 className="main-headingEmployees">Salary Range</h1>
-            {salaryRangesList.map(each => (
-              <li className="checkBoxDiv" key={each.salaryRangeId}>
-                <input
-                  type="radio"
-                  id={each.label}
-                  name="money"
-                  className="input"
-                  value={each.salaryRangeId}
-                  onClick={this.onClickCheckBoxSalary}
-                />
-                <label htmlFor={each.label}>{each.label}</label>
-              </li>
-            ))}
-          </ul>
-          <hr className="hr" />
-          <ul className="locationList-row">
-            <h1 className="main-headingEmployees">Location</h1>
-            {locationRangeList.map(eachItem => (
-              <li className="checkBoxDiv" key={eachItem.locationRangeId}>
-                <input
-                  type="checkbox"
-                  id={eachItem.label}
-                  value={eachItem.label}
-                  className="input"
-                  onClick={() => this.onClickCheckBoxlocation(eachItem.label)}
-                />
-                <label htmlFor={eachItem.label}>{eachItem.label}</label>
-              </li>
-            ))}
-          </ul>
-          <hr className="hr" />
-        </div>
-        <div className="jobsSearch-container">
-          <div className="SearchinputDiv">
-            <input
-              type="search"
-              placeholder="Search"
-              className="Searchinput"
-              value={searchValue}
-              onChange={this.onChangeSearch}
+      <ul>
+        {filterDate.length === 0 ? (
+          <div className="failedDiv">
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+              alt="no jobs"
+              className="notjobs"
             />
-            <button
-              type="button"
-              data-testid="searchButton"
-              className="searchButton"
-              onClick={this.onClickedSearchIcon}
-            >
-              <BsSearch className="search-icon" />
-            </button>
+            <h1>No Jobs Found</h1>
+            <p>We could not find any jobs. Try other filters</p>
           </div>
-          <ul>
-            {filterDate.length === 0 ? (
-              <div className="failedDiv">
-                <img
-                  src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
-                  alt="no jobs"
-                  className="notjobs"
-                />
-                <h1>No Jobs Found</h1>
-                <p>We could not find any jobs. Try other filters</p>
-              </div>
-            ) : (
-              filterDate.map(eachJob => (
-                <li className="joblist-container" key={eachJob.id}>
-                  <Link to={`/jobs/${eachJob.id}`}>
-                    <div className="joblist-head">
-                      <img
-                        src={eachJob.companyLogoUrl}
-                        alt="company logo"
-                        className="Companylogo"
-                      />
-                      <div className="textAndRating">
-                        <h1>{eachJob.title}</h1>
-                        <div className="rating">
-                          <FaStar color="yellow" />
-                          <p>{eachJob.rating}</p>
-                        </div>
-                      </div>
+        ) : (
+          filterDate.map(eachJob => (
+            <li className="joblist-container" key={eachJob.id}>
+              <Link to={`/jobs/${eachJob.id}`}>
+                <div className="joblist-head">
+                  <img
+                    src={eachJob.companyLogoUrl}
+                    alt="company logo"
+                    className="Companylogo"
+                  />
+                  <div className="textAndRating">
+                    <h1>{eachJob.title}</h1>
+                    <div className="rating">
+                      <FaStar color="yellow" />
+                      <p>{eachJob.rating}</p>
                     </div>
-                    <div className="locationAndBudget">
-                      <div className="locationANDemploytype">
-                        <div className="locationDiv">
-                          <IoLocationOutline />
-                          <p>{eachJob.location}</p>
-                        </div>
-                        <BsBag />
-                        <p>{eachJob.employmentType}</p>
-                      </div>
-                      <div>
-                        <p>{eachJob.packagePerAnnum}</p>
-                      </div>
+                  </div>
+                </div>
+                <div className="locationAndBudget">
+                  <div className="locationANDemploytype">
+                    <div className="locationDiv">
+                      <IoLocationOutline />
+                      <p>{eachJob.location}</p>
                     </div>
-                    <div className="description">
-                      <h1>Description</h1>
-                      <p>{eachJob.jobDescription}</p>
-                    </div>
-                  </Link>
-                </li>
-              ))
-            )}
-          </ul>
-        </div>
-      </div>
+                    <BsBag />
+                    <p>{eachJob.employmentType}</p>
+                  </div>
+                  <div>
+                    <p>{eachJob.packagePerAnnum}</p>
+                  </div>
+                </div>
+                <div className="description">
+                  <h1>Description</h1>
+                  <p>{eachJob.jobDescription}</p>
+                </div>
+              </Link>
+            </li>
+          ))
+        )}
+      </ul>
     )
   }
 
@@ -351,10 +275,87 @@ class JobsRoute extends Component {
   }
 
   render() {
+    const {searchValue} = this.state
     return (
       <>
         <Headers />
-        {this.renderResponse()}
+        <div className="Jobs-container">
+          <div className="sidebar-container">
+            <Profile />
+            <hr className="hr" />
+            <ul className="employmentTypesList-row">
+              <h1 className="main-headingEmployees">Type of Employment</h1>
+              {employmentTypesList.map(eachItem => (
+                <li className="checkBoxDiv" key={eachItem.employmentTypeId}>
+                  <input
+                    type="checkbox"
+                    id={eachItem.label}
+                    value={eachItem.label}
+                    className="input"
+                    onClick={() =>
+                      this.onClickCheckBoxEmployment(eachItem.employmentTypeId)
+                    }
+                  />
+                  <label htmlFor={eachItem.label}>{eachItem.label}</label>
+                </li>
+              ))}
+            </ul>
+            <hr className="hr" />
+            <ul className="salaryRangesList-row">
+              <h1 className="main-headingEmployees">Salary Range</h1>
+              {salaryRangesList.map(each => (
+                <li className="checkBoxDiv" key={each.salaryRangeId}>
+                  <input
+                    type="radio"
+                    id={each.label}
+                    name="money"
+                    className="input"
+                    value={each.salaryRangeId}
+                    onClick={this.onClickCheckBoxSalary}
+                  />
+                  <label htmlFor={each.label}>{each.label}</label>
+                </li>
+              ))}
+            </ul>
+            <hr className="hr" />
+            <ul className="locationList-row">
+              <h1 className="main-headingEmployees">Location</h1>
+              {locationRangeList.map(eachItem => (
+                <li className="checkBoxDiv" key={eachItem.locationRangeId}>
+                  <input
+                    type="checkbox"
+                    id={eachItem.label}
+                    value={eachItem.label}
+                    className="input"
+                    onClick={() => this.onClickCheckBoxlocation(eachItem.label)}
+                  />
+                  <label htmlFor={eachItem.label}>{eachItem.label}</label>
+                </li>
+              ))}
+            </ul>
+            <hr className="hr" />
+          </div>
+          <div className="jobsSearch-container">
+            <div className="SearchinputDiv">
+              <input
+                type="search"
+                placeholder="Search"
+                className="Searchinput"
+                value={searchValue}
+                onChange={this.onChangeSearch}
+              />
+              <button
+                type="button"
+                data-testid="searchButton"
+                className="searchButton"
+                onClick={this.onClickedSearchIcon}
+              >
+                <BsSearch className="search-icon" />
+              </button>
+            </div>
+            <div className="responseOutput">{this.renderResponse()}</div>
+          </div>
+        </div>
       </>
     )
   }
